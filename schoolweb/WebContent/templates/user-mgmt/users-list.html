@@ -1,0 +1,25 @@
+<h2>Users List</h2>
+
+<table class="table table-hover table-striped table-bordered">
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Gender</td>
+            <td>Email</td>
+            <td>Description</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="entity in entityList">
+            <td>{{ entity.userID }}</td>
+            <td>{{ entity.firstName }} {{lastName}}</td>
+            <td>{{ entity.gender }}</td>
+            <td>{{ entity.email }}</td>
+            <td>{{ entity.description }}</td>
+            <td>EDIT | DELETE</td>
+        </tr>
+        
+    </tbody>
+</table>

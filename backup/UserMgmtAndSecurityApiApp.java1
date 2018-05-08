@@ -1,0 +1,24 @@
+package org.school.userandsecurity;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * Hello world!
+ *
+ */
+@SpringBootApplication
+@Configuration
+@EnableAutoConfiguration
+@ComponentScan(basePackages = { "org.school.userandsecurity" })
+public class UserMgmtAndSecurityApiApp {
+
+	public static void main(String[] args) {
+
+		System.out.println("Hello World!");
+		SpringApplication.run(UserMgmtAndSecurityApiApp.class, args);
+	}
+}
