@@ -68,7 +68,7 @@ public class UserController extends BaseController {
 		return userService.findUsersByRoleAndStatus(role, userStatus);
 	}
 
-	@PostMapping("/register")
+	@PostMapping({"/register", ""})
 	public ResponseBean<Object> createUser(@Valid @RequestBody UserVO userVO) {
 
 		if(null == userVO.getStatus()) {

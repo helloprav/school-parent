@@ -52,8 +52,14 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
             controller: 'LoginCtrl',
             controllerAs: 'login'
         })
+        .state('register', {
+            url: "/register",
+            templateUrl: "templates/usersecurity/register-form.html",
+            controller: 'RegisterCtrl',
+            controllerAs: 'register'
+        })
         ;
-        
+
 });
 
 routerApp.controller('DashboardCtrl', function($scope, $state) {
@@ -88,3 +94,19 @@ routerApp.controller('scotchController', function($scope, $state) {
     ];
     
 });
+
+routerApp.controller('NavCtrl', [
+	'$scope',
+	'$location',
+	function($scope, $location) {
+		$scope.isTopNavActive = function(viewLocation) {
+			var active = ($location.path().indexOf(viewLocation) == 0);
+			return active;
+		};
+		$scope.isActive = function(viewLocation) {
+			var active = $location.path().match('^'+viewLocation+'$');
+			return active;
+		};
+		
+	}
+])// end nav controller

@@ -31,7 +31,7 @@ public class SpringWebApplicationInitializer extends AbstractAnnotationConfigDis
 
 	static {
 		System.setProperty(ApplicationConstants.CONFIG_PATH_PROPERTY_NAME,
-				"D:\\Work\\WS\\WS_SHOP\\school-parent\\school-user-security\\src\\main\\resources\\env-config\\dev");
+				"D:\\Work\\Repository\\JavaTechPoc\\school-parent\\school-user-security\\src\\main\\resources\\env-config\\dev");
 	}
 
 	@Override

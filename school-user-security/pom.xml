@@ -22,26 +22,6 @@
 		<project.version>0.1</project.version>
 	</properties>
 
-    <!-- Repository for Spring Cloud -->
-    <repositories>
-        <repository>
-            <id>spring-snapshots</id>
-            <name>Spring Snapshots</name>
-            <url>https://repo.spring.io/snapshot</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
 	<dependencies>
 		<!-- Project related dependencies -->
 		<dependency>
@@ -265,11 +245,6 @@
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
 
-        <!-- Eureka Service Discovery -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-        </dependency>
 	</dependencies>
 
 

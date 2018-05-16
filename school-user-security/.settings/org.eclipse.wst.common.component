@@ -10,7 +10,7 @@
         <dependent-module archiveName="open-commons-0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/open-commons/open-commons">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="open-commons-rest-0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/open-commons-rest/open-commons-rest">
+        <dependent-module archiveName="open-commons-rest-0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/open-common-rest/open-common-rest">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="open-commons-jpa-0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/open-commons-jpa/open-commons-jpa">

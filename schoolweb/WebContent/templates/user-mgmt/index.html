@@ -1,9 +1,35 @@
+<!-- 
 <div class="jumbotron text-center">
 
     <a ui-sref=".list" class="btn btn-primary">Users List</a>
     <a ui-sref=".paragraph" class="btn btn-danger">Paragraph</a>
     <a ui-sref=".dashboard" class="btn btn-danger">Log into Dashboard</a>
     <a href="https://embed.plnkr.co/plunk/kdoccd" >Angular JS Good POC</a>
-</div>
+</div>	
+<table class="table" border="0">
+    <tbody>
+        <tr>
+            <td colspan="3" align="left"><a ui-sref=".list" class="btn btn-primary">Users List</a></td>
+            <td colspan="1" align="right"><a ui-sref=".add" class="btn btn-info">Add New</a></td>
+        </tr>
+    </tbody>
+</table>
+
 
 <div ui-view></div>
+
+-->
+<div class="panel panel-default">
+	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" class="alert alert-danger">{{alert.msg}}</alert>
+
+    <div class="navbar-inner">
+	
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist" ng-controller="NavCtrl">
+            <li ng-class="{active:isActive('/user-mgmt/list')}"><a href="#/user-mgmt/list" role="tab" data-toggle="tab">List</a></li>
+            <li ng-class="{active:isActive('/user-mgmt/new')}"><a href="#/user-mgmt/new" role="tab" data-toggle="tab">New</a></li>
+        </ul>
+	</div>
+
+	<ui-view></ui-view>
+</div>

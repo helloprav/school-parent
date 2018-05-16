@@ -65,11 +65,13 @@ public class UserAdaptor {
 	public User fromVO(UserVO userVO) {
 		User user = new User();
 		BeanUtils.copyProperties(userVO, user);
-		Character[] passwd = new Character[userVO.getPassword().length];
-		for(int i=0; i<userVO.getPassword().length; i++) {
-			passwd[i] = new Character(userVO.getPassword()[i]);
+		if(null!=userVO.getPassword()) {
+			Character[] passwd = new Character[userVO.getPassword().length];
+			for(int i=0; i<userVO.getPassword().length; i++) {
+				passwd[i] = new Character(userVO.getPassword()[i]);
+			}
+			user.setPassword(passwd);
 		}
-		user.setPassword(passwd);
 		updateEnumTypesFromVO(userVO, user);
 		return user;
 	}

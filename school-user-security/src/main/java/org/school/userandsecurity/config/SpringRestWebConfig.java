@@ -8,7 +8,6 @@ import org.openframework.common.rest.advice.RestResponseEntityExceptionHandler;
 import org.openframework.common.rest.interceptor.CustomRequestHandler;
 import org.school.userandsecurity.rest.argumentresolver.UserProfileHandlerMethodArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +25,6 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @Configuration
 @EnableWebMvc
-@EnableDiscoveryClient
 @EnableAspectJAutoProxy
 @ComponentScan(basePackages= {"org.school.userandsecurity"})
 @EnableJpaRepositories("org.school.userandsecurity.service.repository")
