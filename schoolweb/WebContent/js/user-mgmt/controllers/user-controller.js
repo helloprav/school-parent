@@ -16,11 +16,9 @@
 		$scope.displayedCollection = [].concat($scope.configs);
 		console.log("Alerts size = "+$scope.alerts.length);
 
-		// var url = "/user-security-web/api/users/roles/student";
-		// findEntity($http, $scope, url);
 
 		$scope.createUser = function() {
-			configFactory.create($scope.user);
+		    configFactory.create($scope.user);
 		};
 	    })
 })();

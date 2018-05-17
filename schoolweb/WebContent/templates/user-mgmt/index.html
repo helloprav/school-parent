@@ -19,12 +19,13 @@
 <div ui-view></div>
 
 -->
+<!-- 
 <div class="panel panel-default">
 	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" class="alert alert-danger">{{alert.msg}}</alert>
 
     <div class="navbar-inner">
 	
-        <!-- Nav tabs -->
+        <! - - Nav tabs - - >
         <ul class="nav nav-tabs" role="tablist" ng-controller="NavCtrl">
             <li ng-class="{active:isActive('/user-mgmt/list')}"><a href="#/user-mgmt/list" role="tab" data-toggle="tab">List</a></li>
             <li ng-class="{active:isActive('/user-mgmt/new')}"><a href="#/user-mgmt/new" role="tab" data-toggle="tab">New</a></li>
@@ -32,4 +33,16 @@
 	</div>
 
 	<ui-view></ui-view>
+</div> -->
+
+
+<div class="btn-group">
+	Please Select User Role &nbsp;
+	<button type="button" class="btn btn-default dropdown-toggle"
+		data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Roles</button>
+	<div class="dropdown-menu">
+		<a ng-repeat="role in userRoles" class="dropdown-item" ui-sref123="user-mgmt.list" href="#/user-mgmt/list/{{role}}" ng-click123="dropboxRoleSelected(role)">{{role}}</a>
+	</div>
 </div>
+
+<ui-view></ui-view>

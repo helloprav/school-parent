@@ -21,10 +21,14 @@ public class UserASImpl extends BaseASImpl implements UserAS {
 
 	@Override
 	public List<User> findUsersByRoleAndStatus(UserRole role, UserStatus userStatus) {
-		if (null == userStatus) {
-			return userRepository.findByRole(role);
+		if (null == userStatus && null == role) {
+			return userRepository.findAll();
 		} else {
-			return userRepository.findByRoleAndStatus(role, userStatus);
+			if (null == userStatus) {
+				return userRepository.findByRole(role);
+			} else {
+				return userRepository.findByRoleAndStatus(role, userStatus);
+			}
 		}
 	}
 

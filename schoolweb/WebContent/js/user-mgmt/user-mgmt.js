@@ -6,23 +6,41 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/login');
 
     $stateProvider
-        
+
         // HOME STATES AND NESTED VIEWS ========================================
         .state('user-mgmt', {
             url: '/user-mgmt',
             templateUrl: 'templates/user-mgmt/index.html',
-            abstract: true,
-            controller: 'UsersController'
+            controller: 'UsersController',
+            resolve: {
+		userRolePromise: ['configFactory', function(configFactory) {
+			return configFactory.getUserRole();
+		}]
+            }
         })
 
         // nested list with custom controller
         .state('user-mgmt.list', {
-            url: '/list',
+            url: '/list/{role}',
             templateUrl: 'templates/user-mgmt/users-list.html',
             controller: 'UsersController',
             resolve: {
-		configsPromise: ['configFactory', function(configFactory) {
-			return configFactory.getAll();
+		configsPromise: ['configFactory', '$stateParams', function(configFactory, $stateParams) {
+		    console.log('Hello: '+$stateParams.role);
+			return configFactory.getUsersByRole($stateParams.role);
+		}]
+            }
+        })
+
+        // nested list with custom controller
+        .state('user-mgmt.listBackup', {
+            url: '/list/:role',
+            templateUrl: 'templates/user-mgmt/users-list.html',
+            controller: 'UsersController',
+            resolve: {
+		configsPromise: ['configFactory', '$stateParams', function(configFactory, $stateParams) {
+		    console.log('Hello: '+$stateParams.role);
+			return configFactory.getUsersByRole($stateParams.selectedItem);
 		}]
             }
         })

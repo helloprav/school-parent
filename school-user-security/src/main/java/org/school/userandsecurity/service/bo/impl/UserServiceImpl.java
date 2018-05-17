@@ -33,9 +33,9 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 
 	@Override
 	public List<UserVO> findUsersByRoleAndStatus(UserRole role, UserStatus userStatus) {
-		if(null == role) {
+		/*if(null == role) {
 			role = UserRole.student;
-		}
+		}*/
 		List<User> users = userAS.findUsersByRoleAndStatus(role, userStatus);
 		return userAdaptor.toVO(users);
 	}

@@ -56,6 +56,12 @@ public class UserController extends BaseController {
 	 * 
 	 * @return
 	 */
+	@GetMappingProduces ("")
+	public List<UserVO> findUsers(@ApiIgnore UserVO userProfile) {
+		System.out.println("User Email: "+userProfile.getEmail());
+		return findUsersByRoleAndStatus(null, null);
+	}
+
 	@SecuredPermissions("student")
 	@GetMappingProduces ("/roles/{role}")
 	public List<UserVO> findUsersByRole(@PathVariable UserRole role, @ApiIgnore UserVO userProfile) {

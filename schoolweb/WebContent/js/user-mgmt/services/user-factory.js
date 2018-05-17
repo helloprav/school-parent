@@ -28,6 +28,11 @@ angular.module('routerApp')
 			initGenders();
 		}
 
+		o.getUserRole = function() {
+			console.log("getUserRole called");
+			initRoles();
+		}
+
 		function initRoles() {
 			console.log("initRoles called");
 			o.userRoles = [];
@@ -49,6 +54,7 @@ angular.module('routerApp')
 		}
 
 		o.get = function(id) {
+			console.log("get called for id:"+id);
 		    	var url = userMgmtCtx+"/users/roles/student";
 			return $http.get(url).then(function(res) {
 				angular.copy(res.data, o.user);
@@ -56,12 +62,26 @@ angular.module('routerApp')
 		};
 
 		o.getAll = function() {
-			console.log('getting all configs');
-		    	var url = userMgmtCtx+"/users/roles/student";
+			console.log('getting all users');
+		    	var url = userMgmtCtx+"/users";
 			return $http.get(url).success(function(data) {
 				o.configs = [];
 				angular.copy(data, o.configs);
 				angular.copy(data, o.entityList);
+			});
+		};
+
+		o.getUsersByRole = function(role) {
+			console.log('getting all users for role: '+role);
+		    	var url = userMgmtCtx+"/users";
+		    	if(role != 'All') {
+		    	    url = url+"/roles/"+role;
+		    	}
+			return $http.get(url).success(function(data) {
+				o.configs = [];
+				angular.copy(data, o.configs);
+				angular.copy(data, o.entityList);
+				console.log('getting all users for data: '+o.entityList.data);
 			});
 		};
 
