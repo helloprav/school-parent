@@ -41,6 +41,7 @@
 	<button type="button" class="btn btn-default dropdown-toggle"
 		data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Roles</button>
 	<div class="dropdown-menu">
+		<a class="dropdown-item" href="#/user-mgmt/list/all">all</a>
 		<a ng-repeat="role in userRoles" class="dropdown-item" ui-sref123="user-mgmt.list" href="#/user-mgmt/list/{{role}}" ng-click123="dropboxRoleSelected(role)">{{role}}</a>
 	</div>
 </div>

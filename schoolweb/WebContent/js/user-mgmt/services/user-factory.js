@@ -74,7 +74,7 @@ angular.module('routerApp')
 		o.getUsersByRole = function(role) {
 			console.log('getting all users for role: '+role);
 		    	var url = userMgmtCtx+"/users";
-		    	if(role != 'All') {
+		    	if(role != 'all') {
 		    	    url = url+"/roles/"+role;
 		    	}
 			return $http.get(url).success(function(data) {
