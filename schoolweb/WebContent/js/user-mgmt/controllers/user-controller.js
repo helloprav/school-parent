@@ -3,10 +3,10 @@
 
     angular.module('routerApp').controller(
 	    'UsersController',
-	    function($rootScope, $scope, $state, $http, $window, $location,
+	    function($rootScope, $scope, $state, $http, $window, $location, $stateParams,
 		    configFactory) {
 
-		console.log("within UsersController.................");
+		console.log('within UsersController.....$stateParams.role: '+$stateParams.role);
 		$scope.entityList = configFactory.entityList.data;
 		$scope.configs = configFactory.configs;
 		$scope.user = configFactory.user;
@@ -14,6 +14,20 @@
 		$scope.userRoles = configFactory.userRoles;
 		$scope.userGenders = configFactory.userGenders;
 		$scope.displayedCollection = [].concat($scope.configs);
+		//$scope.selectedRole = $stateParams.role;
+		if($stateParams.role != undefined) {
+		    //$scope.selectedRole = true;
+		    $scope.selectedRole = {
+			value: $stateParams.role
+		    };
+		}
+		if($stateParams.role == undefined) {
+		    //$scope.selectedRole = true;
+		    $scope.selectedRole = {
+			value: 'NIL'
+		    };
+		}
+		console.log("$scope.selectedRole.value = "+$scope.selectedRole.value);
 		console.log("Alerts size = "+$scope.alerts.length);
 
 

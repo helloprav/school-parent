@@ -99,7 +99,7 @@ angular.module('routerApp')
 			.success(function(data) {
 				o.setAlert("success", "Successfully created user!");
 
-				$state.go('user-mgmt.list');				
+				$state.go('user-mgmt.users');				
 			})
 			.error(function(data, status, headers, user) {
 				console.log("Error creating! status = "+status+", data = "+data);
