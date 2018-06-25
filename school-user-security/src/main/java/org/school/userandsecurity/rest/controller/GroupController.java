@@ -58,7 +58,7 @@ public class GroupController extends BaseController {
 	 * @return
 	 */
 	// TODO Check an article if the url "" OR "/" is valid
-	@GetMapping(path = { "", "/", "/parent", "/parent/" })
+	@GetMapping(path = { "", "/" })
 	public List<GroupVO> findGroups() {
 		return groupService.findGroups();
 	}
@@ -90,11 +90,11 @@ public class GroupController extends BaseController {
 
 		groupVO.setLoggedInUserId(loggedInUser.getLoggedInUserId());
 		Long id = groupService.createGroup(groupVO);
-		return new ResponseBean<>(HttpStatus.CREATED.value(), String.format("Category %s created successfully", id));
+		return new ResponseBean<>(HttpStatus.CREATED.value(), String.format("Group [%s] created successfully", id));
 	}
 
 	@GetMapping(path = "/{id}")
-	public List<GroupVO> findGroupById(@PathVariable Long id) throws ServiceNotFoundException {
+	public GroupVO findGroupById(@PathVariable Long id) throws ServiceNotFoundException {
 
 		if (id == 0) {
 			throw new KeywordNotFoundException("The ID is: " + id);

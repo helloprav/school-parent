@@ -1,3 +1,5 @@
+var userMgmtCtx = "/user-security-web/api";
+
 var routerApp = angular.module('routerApp', ['ui.router']);
 
 routerApp.config(function($stateProvider, $urlRouterProvider) {

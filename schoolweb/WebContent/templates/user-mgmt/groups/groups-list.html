@@ -18,31 +18,22 @@
 			ng-change="changeType()"></select>
  -->
 
-<div class="alert alert-primary" role="alert">
-  Displaying All: {{selectedRole.value}}
-</div>
 <table class="table table-hover table-striped table-bordered table-responsive">
     <thead>
         <tr>
             <td>ID</td>
             <td>Name</td>
-            <td>Gender</td>
-            <td>Email</td>
-            <td>Role</td>
             <td>Description</td>
             <td>Action</td>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="entity in entityList">
-            <td>{{ entity.userID }}</td>
-            <td>{{ entity.firstName }} {{lastName}}</td>
-            <td>{{ entity.gender }}</td>
-            <td>{{ entity.email }}</td>
-            <td>{{ entity.role }}</td>
+            <td><a href="#/group-mgmt/groups/{{ entity.id }}/view">{{ entity.id }}</a></td>
+            <td>{{ entity.groupName }}</td>
             <td>{{ entity.description }}</td>
-            <td>EDIT | DELETE</td>
+            <td><a href="#/group-mgmt/groups/{{ entity.id }}/edit">EDIT</a> | DELETE</td>
         </tr>
-        
+
     </tbody>
 </table>

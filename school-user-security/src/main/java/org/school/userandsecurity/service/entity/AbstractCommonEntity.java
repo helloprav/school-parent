@@ -13,6 +13,8 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.commons.lang3.StringUtils;
+
 @MappedSuperclass
 public class AbstractCommonEntity {
 
@@ -86,5 +88,14 @@ public class AbstractCommonEntity {
 
 	public void setIsValid(Boolean isValid) {
 		this.isValid = isValid;
+	}
+
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName()+"[id="+this.getId()+toStringSub()+"]";
+	}
+
+	public String toStringSub() {
+		return StringUtils.EMPTY;
 	}
 }

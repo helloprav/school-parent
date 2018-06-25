@@ -33,17 +33,39 @@
 	</div>
 
 	<ui-view></ui-view>
-</div> -->
-
+</div>
 
 <div class="btn-group">
 	Please Select User Role &nbsp;
-	<button type="button" class="btn btn-default dropdown-toggle"
+	<button type="button" class="btn btn-primary dropdown-toggle"
 		data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Roles</button>
-	<div class="dropdown-menu">
-		<a class="dropdown-item" href="#/user-mgmt/list/all">all</a>
-		<a ng-repeat="role in userRoles" class="dropdown-item" ui-sref123="user-mgmt.list" href="#/user-mgmt/list/{{role}}" ng-click123="dropboxRoleSelected(role)">{{role}}</a>
+	<div class="dropdown-menu" onload="initRoleDropdown()" id="roleDropDown">
+		<li class="dropdown active">
+			<a class="dropdown-item open" href="#/user-mgmt/users/list/all">all</a>
+		</li>
+		<li ng-repeat="role in userRoles" class="dropdown">
+			<a class="dropdown-item" ui-sref123="user-mgmt.list" href="#/user-mgmt/users/list/{{role}}" ng-click123="dropboxRoleSelected(role)">{{role}}</a>
+		</li>
+	</div>
+</div> -->
+<div class="container">
+	<div class="btn-group">
+		Please Select User Role &nbsp;
+		<button type="button" class="btn btn-primary dropdown-toggle"
+			data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Roles</button>
+		<div class="dropdown-menu">
+			<li class="dropdown active">
+				<a class="dropdown-item open" href="#/user-mgmt/users/list/all">all</a>
+			</li>
+			<li ng-repeat="role in userRoles" class="dropdown">
+				<a class="dropdown-item" href="#/user-mgmt/users/list/{{role}}">{{role}}</a>
+			</li>
+		</div>
+	</div>
+
+	<div align="right" class="btn-group-vertical float-right">
+		<a href="#/user-mgmt/users/new"><button
+				type="button" class="btn btn-primary">Create</button></a>
 	</div>
 </div>
-
-<ui-view></ui-view>
+<div ui-view></div>

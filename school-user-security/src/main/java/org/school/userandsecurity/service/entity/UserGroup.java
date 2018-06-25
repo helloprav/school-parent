@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="USER_GROUP")
-@NamedQuery(name="UserGroup.findAll", query="SELECT u FROM UserGroup u")
+//@NamedQuery(name="UserGroup.findAll", query="SELECT u FROM UserGroup u join fetch u.")
 public class UserGroup extends AbstractCommonEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -42,11 +42,11 @@ public class UserGroup extends AbstractCommonEntity implements Serializable {
 		this.group = group;
 	}
 
-	public synchronized User getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public synchronized void setUser(User user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

@@ -3,6 +3,7 @@
  */
 package org.school.userandsecurity.service.bo.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -11,8 +12,12 @@ import org.openframework.common.rest.service.impl.BaseServiceImpl;
 import org.school.userandsecurity.service.adaptor.GroupAdaptor;
 import org.school.userandsecurity.service.as.GroupAS;
 import org.school.userandsecurity.service.bo.GroupService;
+import org.school.userandsecurity.service.entity.Group;
 import org.school.userandsecurity.vo.GroupVO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -20,19 +25,20 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackForClassName = "Exception", isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
 public class GroupServiceImpl extends BaseServiceImpl implements GroupService {
 
 	@SuppressWarnings("unused")
 	@Inject
-	private GroupAS productCategoryAS;
+	private GroupAS groupAS;
 
 	@SuppressWarnings("unused")
 	@Inject
-	private GroupAdaptor productCategoryAdaptor;
+	private GroupAdaptor groupAdaptor;
 
 	@Override
 	public List<GroupVO> findGroups() {
-		return null;
+		return groupAdaptor.toGroupVO(groupAS.findGroups());
 	}
 
 	@Override
@@ -43,20 +49,28 @@ public class GroupServiceImpl extends BaseServiceImpl implements GroupService {
 
 	@Override
 	public Long createGroup(GroupVO groupVO) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Group groupTobeCreated = groupAdaptor.fromVO(groupVO);
+		groupTobeCreated.setId(null);
+		groupAS.checkUniqueGroupName(groupTobeCreated.getGroupName());
+		groupTobeCreated.setCreatedDate(new Date());
+		groupTobeCreated = groupAS.saveGroup(groupTobeCreated);
+		return groupTobeCreated.getId();
 	}
 
 	@Override
-	public List<GroupVO> findGroupById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public GroupVO findGroupById(Long id) {
+		return groupAdaptor.toVO(groupAS.findGroupById(id));
 	}
 
 	@Override
-	public GroupVO updateGroup(GroupVO group) {
-		// TODO Auto-generated method stub
-		return null;
+	public GroupVO updateGroup(GroupVO groupVO) {
+
+		Group groupTobeUpdated = groupAdaptor.fromVO(groupVO);
+		groupTobeUpdated.setModifiedDate(new Date());
+		groupAS.checkUniqueGroupNameNotId(groupTobeUpdated);
+		groupAS.deleteGroupFunctions(groupVO.getId());
+		return groupAdaptor.toVO(groupAS.saveGroup(groupTobeUpdated));
 	}
 
 	@Override

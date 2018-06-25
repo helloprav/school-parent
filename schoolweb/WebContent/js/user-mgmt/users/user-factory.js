@@ -1,3 +1,4 @@
+//var userMgmtCtx = "/user-security-web/api";
 angular.module('routerApp')
 .factory('configFactory', [
 	'$http', 

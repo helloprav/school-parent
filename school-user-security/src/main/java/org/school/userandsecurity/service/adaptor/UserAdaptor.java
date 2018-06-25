@@ -54,7 +54,7 @@ public class UserAdaptor {
 				Iterator<GroupFunction> groupFunctionIterator = userGroup.getGroup().getGroupFunctions().iterator();
 				while (groupFunctionIterator.hasNext()) {
 					GroupFunction groupFunction = groupFunctionIterator.next();
-					functionList.add(groupFunction.getFunction().getFunctionName());
+					functionList.add(groupFunction.getFunction().getName());
 				}
 				groupFunctionMap.put(userGroup.getGroup().getGroupName(), functionList);
 			}

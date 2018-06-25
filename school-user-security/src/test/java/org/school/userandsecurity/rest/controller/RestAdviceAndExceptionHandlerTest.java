@@ -67,7 +67,7 @@ public class RestAdviceAndExceptionHandlerTest extends BaseControllerTest {
 	 */
 	@Test
 	public void testHttpMethod_MethodNotAllowed405() throws Exception {
-		UserVO ad = createVO("UserControllerTest.testUpdateCategory()");
+		UserVO ad = createUserVO("UserControllerTest.testUpdateCategory()");
 		String requestBody = saveRequestJsonString(ad);
 		mockMvc.perform(put("/cat/4/status/true").param("uid", "1").accept("application/vnd.shop.app-v0.1+json")
 				.content(requestBody)).andExpect(status().isMethodNotAllowed()).andDo(MockMvcResultHandlers.print());
@@ -82,7 +82,7 @@ public class RestAdviceAndExceptionHandlerTest extends BaseControllerTest {
 	@Test
 	public void testInvalidContentTypeHeader_UnsupportedMediaType415() throws Exception {
 
-		UserVO ad = createVO("UserControllerTest.testCreateCategory()");
+		UserVO ad = createUserVO("UserControllerTest.testCreateCategory()");
 		String requestBody = saveRequestJsonString(ad);
 		System.out.println("requestBody: " + requestBody);
 		mockMvc.perform(post("/cat").content(requestBody).contentType("application/vnd.shop.invalid.header"))

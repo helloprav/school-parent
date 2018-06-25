@@ -17,19 +17,22 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="GROUPS")
-@NamedQuery(name="Group.findAll", query="SELECT g FROM Group g")
+@NamedQuery(name="Group.findAll", query="SELECT g FROM Group g join fetch g.groupFunctions gf")
 public class Group extends AbstractCommonEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "GROUP_NAME", length = 50)
+	@Column(name = "GROUP_NAME", length = 50, nullable = false)
 	private String groupName;
+
+	@Column(name = "DESCRIPTION", length = 500)
+	private String description;
 
 	@OneToMany(mappedBy="group" ,fetch=FetchType.EAGER)
 	private List<GroupFunction> groupFunctions;
 
 	//bi-directional many-to-one association to UserGroup
 	@OneToMany(mappedBy="group")
-	private List<UserGroup> usergroups;
+	private List<UserGroup> userGroups;
 
 	public Group() {
 		// no argument constructor
@@ -51,26 +54,34 @@ public class Group extends AbstractCommonEntity implements Serializable {
 		this.groupFunctions = groupFunctions;
 	}
 
-	public List<UserGroup> getUsergroups() {
-		return this.usergroups;
+	public List<UserGroup> getUserGroups() {
+		return this.userGroups;
 	}
 
-	public void setUsergroups(List<UserGroup> usergroups) {
-		this.usergroups = usergroups;
+	public void setUserGroups(List<UserGroup> userGroups) {
+		this.userGroups = userGroups;
 	}
 
 	public UserGroup addUsergroup(UserGroup usergroup) {
-		getUsergroups().add(usergroup);
+		getUserGroups().add(usergroup);
 		usergroup.setGroup(this);
 
 		return usergroup;
 	}
 
 	public UserGroup removeUsergroup(UserGroup usergroup) {
-		getUsergroups().remove(usergroup);
+		getUserGroups().remove(usergroup);
 		usergroup.setGroup(null);
 
 		return usergroup;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

@@ -16,7 +16,7 @@ public class Function extends AbstractCommonEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "FUNCTION_NAME", length = 50)
-	private String functionName;
+	private String name;
 
 	@OneToMany(mappedBy = "function")
 	private List<GroupFunction> groupFunctions;
@@ -29,12 +29,12 @@ public class Function extends AbstractCommonEntity implements Serializable {
 		this.groupFunctions = groupFunctions;
 	}
 
-	public String getFunctionName() {
-		return functionName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFunctionName(String functionName) {
-		this.functionName = functionName;
+	public void setName(String functionName) {
+		this.name = functionName;
 	}
 
 	public Function() {

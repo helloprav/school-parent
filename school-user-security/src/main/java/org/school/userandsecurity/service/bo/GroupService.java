@@ -19,7 +19,7 @@ public interface GroupService {
 
 	Long createGroup(GroupVO groupVO);
 
-	List<GroupVO> findGroupById(Long id);
+	GroupVO findGroupById(Long id);
 
 	GroupVO updateGroup(GroupVO group);
 

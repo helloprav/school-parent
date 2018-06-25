@@ -97,7 +97,7 @@ public class UserControllerTest extends BaseControllerTest {
 
 	// @Test
 	public void testCreateUser_InvalidGenderEnumValue() throws Exception {
-		UserVO user = createVO("Ctrl.testCreateUser");
+		UserVO user = createUserVO("Ctrl.testCreateUser");
 		user.setGender("Praveen");
 		user.setStatus(null);
 		user.setRole(null);
@@ -108,7 +108,7 @@ public class UserControllerTest extends BaseControllerTest {
 
 	// @Test
 	public void testCreateUser_MissingMandatoryFields() throws Exception {
-		UserVO user = createVO("Ctrl.testCreateUser");
+		UserVO user = createUserVO("Ctrl.testCreateUser");
 		user.setFirstName(null);
 		user.setGender(null);
 		user.setStatus(null);
@@ -120,12 +120,12 @@ public class UserControllerTest extends BaseControllerTest {
 
 	// @Test
 	public void testCreateUser_IncorrectStringFieldsSize() throws Exception {
-		UserVO user = createVO("Ctrl.testCreateUser");
+		UserVO user = createUserVO("Ctrl.testCreateUser");
 		user.setFirstName("Raj");
-		user.setLastName(MORE_THAN_FIFTY_CHAR_LONG_STRING);
-		user.setEmail(MORE_THAN_FIFTY_CHAR_LONG_STRING);
-		user.setMobile(MORE_THAN_FIFTY_CHAR_LONG_STRING);
-		user.setPhone(MORE_THAN_FIFTY_CHAR_LONG_STRING);
+		user.setLastName(MORE_THAN_50_CHAR_LONG_STRING);
+		user.setEmail(MORE_THAN_50_CHAR_LONG_STRING);
+		user.setMobile(MORE_THAN_50_CHAR_LONG_STRING);
+		user.setPhone(MORE_THAN_50_CHAR_LONG_STRING);
 		String jsonBody = convertVoToJsonString(user);
 		mockMvc.perform(post("/users").content(jsonBody).contentType(SUPPORTED_CONTENT_TYPE))
 				.andExpect(status().isBadRequest()).andDo(MockMvcResultHandlers.print());
@@ -133,7 +133,7 @@ public class UserControllerTest extends BaseControllerTest {
 
 	// @Test
 	public void testCreateUser_IncorrectIntegerFieldsSize() throws Exception {
-		UserVO user = createVO("Ctrl.testCreateUser");
+		UserVO user = createUserVO("Ctrl.testCreateUser");
 		user.setAdmissionNo(19999999l);
 		String jsonBody = convertVoToJsonString(user);
 		mockMvc.perform(post("/users").content(jsonBody).contentType(SUPPORTED_CONTENT_TYPE))
@@ -142,7 +142,7 @@ public class UserControllerTest extends BaseControllerTest {
 
 	// @Test
 	public void testCreateUser_UniqueAdmissionNo() throws Exception {
-		UserVO user = createVO("Ctrl.testCreateUser");
+		UserVO user = createUserVO("Ctrl.testCreateUser");
 		user.setAdmissionNo(20000000l);
 		String jsonBody = convertVoToJsonString(user);
 		mockMvc.perform(post("/users").content(jsonBody).contentType(SUPPORTED_CONTENT_TYPE))
@@ -151,7 +151,7 @@ public class UserControllerTest extends BaseControllerTest {
 
 	 @Test
 	public void testCreateUser() throws Exception {
-		UserVO user = createVO("Ctrl.testCreateUser");
+		UserVO user = createUserVO("Ctrl.testCreateUser");
 		String jsonBody = convertVoToJsonString(user);
 		mockMvc.perform(post("/users").content(jsonBody).contentType(SUPPORTED_CONTENT_TYPE))
 				.andExpect(status().isCreated()).andDo(MockMvcResultHandlers.print());
@@ -165,7 +165,7 @@ public class UserControllerTest extends BaseControllerTest {
 
 //	@Test
 	public void testCreateUser_InvalidEmail() throws Exception {
-		UserVO user = createVO("Ctrl.testCreateUser");
+		UserVO user = createUserVO("Ctrl.testCreateUser");
 		user.setEmail("Invalid_Email");
 		String jsonBody = convertVoToJsonString(user);
 		mockMvc.perform(post("/users").content(jsonBody).contentType(SUPPORTED_CONTENT_TYPE))
@@ -186,7 +186,7 @@ public class UserControllerTest extends BaseControllerTest {
 
 	@Test
 	public void testUpdateUser() throws Exception {
-		UserVO user = createVO("Ctrl.testUpdateUser");
+		UserVO user = createUserVO("Ctrl.testUpdateUser");
 		String jsonBody = convertVoToJsonString(user);
 		mockMvc.perform(put("/users").content(jsonBody).contentType(SUPPORTED_CONTENT_TYPE))
 				.andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());

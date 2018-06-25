@@ -33,11 +33,18 @@
     <script src="js/usersecurity/register-controller.js"></script>
     <script src="js/usersecurity/security-interceptor.js"></script>
 
-	<!-- user-mgmt module -->
-    <script src="js/user-mgmt/user-mgmt.js"></script>
-    <script src="js/user-mgmt/services/user-factory.js"></script>
-    <script src="js/user-mgmt/controllers/user-controller.js"></script>
-    <!-- <script src="js/user-mgmt/services/UserService.js"></script> -->
+	<!-- user-mgmt module :: users -->
+    <script src="js/user-mgmt/users/user-config.js"></script>
+    <script src="js/user-mgmt/users/user-factory.js"></script>
+    <script src="js/user-mgmt/users/user-controller.js"></script>
+
+	<!-- user-mgmt module :: groups -->
+    <script src="js/user-mgmt/groups/group-config.js"></script>
+    <script src="js/user-mgmt/groups/group-factory.js"></script>
+    <script src="js/user-mgmt/groups/group-controller.js"></script>
+
+	<!-- user-mgmt module :: functions -->
+    <script src="js/user-mgmt/groups/function-factory.js"></script>
 </head>
 
 <!-- apply our angular app to our site -->
@@ -65,7 +72,7 @@
 					aria-expanded="false">User Management</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" ui-sref="user-mgmt.users">Users</a> <a
-							class="dropdown-item" ui-sref="group-mgmt.groups">Groups</a>
+							class="dropdown-item" ui-sref="group-mgmt.groups.list">Groups</a>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="#">Something else here</a>
 					</div></li>
