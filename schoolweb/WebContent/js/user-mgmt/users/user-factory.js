@@ -112,7 +112,7 @@ angular.module('routerApp')
 
 		o.update = function(config) {
 			console.log("Updating config");
-			return $http.put(userMgmtCtx+'/users'+config.userID, config)
+			return $http.put(userMgmtCtx+'/users/'+config.userID, config)
 			.success(function(data) {
 				o.setAlert("success", "Successfully updated config!");
 				
