@@ -1,33 +1,17 @@
-<!-- <div class="col-sm-10">
-	<select class="form-control" ng-model="selectedRole" ng-change="changeType()" >	
-		<option ng-repeat="role1 in userRoles" value="{{role1}}">{{role1}}</option>
-	</select>
-</div>
-<div class="dropdown">
-	<button class="btn btn-primary dropdown-toggle" type="button"
-		data-toggle="dropdown">
-		Dropdown Example <span class="caret"></span>
-	</button>
-	<ul class="dropdown-menu">
-		<li ng-repeat="item in userRoles"><a ng-model="selectedRole"
-			ng-change="changeType()"></a></li>
-	</ul>
-</div> -->
-<!-- 		<select ng-model="selectedRole"
-			ng-options="item as item for item in userRoles"
-			ng-change="changeType()"></select>
- -->
-
 <table class="table table-hover table-striped table-bordered table-responsive">
     <thead>
+        <tr>
+            <td colspan="4" align="right"><a href="#/group-mgmt/groups/new"><button
+				type="button" class="btn btn-primary">Create</button></a></td>
+        </tr>
+    </thead>
+    <tbody>
         <tr>
             <td>ID</td>
             <td>Name</td>
             <td>Description</td>
             <td>Action</td>
         </tr>
-    </thead>
-    <tbody>
         <tr ng-repeat="entity in entityList">
             <td><a href="#/group-mgmt/groups/{{ entity.id }}/view">{{ entity.id }}</a></td>
             <td>{{ entity.groupName }}</td>

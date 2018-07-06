@@ -178,10 +178,12 @@ public class UserControllerTest extends BaseControllerTest {
 				.andDo(MockMvcResultHandlers.print());
 	}
 
-	// @Test
+	@Test
 	public void testFindUserById() throws Exception {
-		mockMvc.perform(get("/users/1").contentType(SUPPORTED_CONTENT_TYPE)).andExpect(status().isOk())
-				.andDo(MockMvcResultHandlers.print()).andExpect(jsonPath("$.data").exists());
+		mockMvc.perform(get("/users/3").contentType(SUPPORTED_CONTENT_TYPE))
+			.andDo(MockMvcResultHandlers.print())
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.data").exists());
 	}
 
 	@Test

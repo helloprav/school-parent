@@ -11,19 +11,12 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
         .state('user-mgmt', {
             url: '/user-mgmt',
             templateUrl: 'templates/user-mgmt/placeHolder.html',
-            controller: 'UsersController',
-            abstract: true,
+            abstract: true
         })
     
         .state('user-mgmt.users', {
             url: '/users',
             templateUrl: 'templates/user-mgmt/users/index.html',
-            controller: 'UsersController',
-            resolve: {
-		userRolePromise: ['configFactory', function(configFactory) {
-			return configFactory.getUserRole();
-		}]
-            }
         })
 
         // nested list with custom controller
@@ -33,24 +26,53 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
             controller: 'UsersController',
             resolve: {
 		configsPromise: ['configFactory', '$stateParams', function(configFactory, $stateParams) {
-		    console.log('Hello: '+$stateParams.role);
-		    if($stateParams.role != null) {
-			return configFactory.getUsersByRole($stateParams.role);
+
+		    var selectedRole = $stateParams.role;
+		    console.log('user-mgmt.users.list: '+selectedRole);
+		    if(selectedRole == null || selectedRole == '') {
+			selectedRole = 'all';
 		    }
+		    console.log('user-mgmt.users.list: '+selectedRole);
+		    return configFactory.getUsersByRole(selectedRole);
 		}]
             }
         })
 
-        // nested list with custom controller
-        .state('user-mgmt.listBackup', {
-            url: '/list/:role',
-            templateUrl: 'templates/user-mgmt/users/users-list.html',
+        // nested view item
+        .state('user-mgmt.users.view', {
+            url: '/{userId}/view',
+            templateUrl: 'templates/user-mgmt/users/user-view.html',
             controller: 'UsersController',
             resolve: {
-		configsPromise: ['configFactory', '$stateParams', function(configFactory, $stateParams) {
-		    console.log('Hello.listBackup: '+$stateParams.role);
-			return configFactory.getUsersByRole($stateParams.selectedItem);
+		userPromise: ['configFactory', '$stateParams', function(configFactory, $stateParams) {
+		    console.log('user-mgmt.users.view::: '+$stateParams.userId);
+		    return configFactory.get($stateParams.userId);
 		}]
+            }
+        })
+
+        // nested view item
+        .state('user-mgmt.users.edit', {
+            url: '/{userId}/edit',
+            templateUrl: 'templates/user-mgmt/users/edit.html',
+            controller: 'UsersController',
+            resolve: {
+		userPromise: ['configFactory', '$stateParams', function(configFactory, $stateParams) {
+		    console.log('user-mgmt.users.edit::: '+$stateParams.userId);
+		    return configFactory.get($stateParams.userId);
+		}],
+		configsPromise: ['groupFactory', function(groupFactory) {
+		    console.log('groupFactory.getAll ');
+		    return groupFactory.getAll();
+		}],
+        	userRolePromise: ['configFactory', function(configFactory) {
+        	    console.log('user-mgmt.users.edit:::getUserRole ');
+        		return configFactory.getUserRole();
+		}],
+        	userGenderPromise: ['configFactory', function(configFactory) {
+        	    console.log('user-mgmt.users.edit:::getUserGender ');
+        		return configFactory.getUserGender();
+        	}]
             }
         })
 
@@ -63,9 +85,14 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
 		configsPromise: ['configFactory', function(configFactory) {
 			return configFactory.resetAll();
 		}],
-		newPromise: ['configFactory', function(configFactory) {
-			return configFactory.initNew();
-		}]
+        	userRolePromise: ['configFactory', function(configFactory) {
+        	    console.log('user-mgmt.users.edit:::getUserRole ');
+        		return configFactory.getUserRole();
+		}],
+        	userGenderPromise: ['configFactory', function(configFactory) {
+        	    console.log('user-mgmt.users.edit:::getUserGender ');
+        		return configFactory.getUserGender();
+        	}]
             }
         })
 

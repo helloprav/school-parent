@@ -15,11 +15,16 @@ import org.school.userandsecurity.service.entity.GroupFunction;
 import org.school.userandsecurity.service.entity.User;
 import org.school.userandsecurity.service.entity.UserGroup;
 import org.school.userandsecurity.utils.EnumUtility;
+import org.school.userandsecurity.vo.GroupVO;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserAdaptor {
+
+	@Autowired
+	private GroupAdaptor groupAdaptor;
 
 	public List<UserVO> toVO(List<User> users) {
 
@@ -42,24 +47,22 @@ public class UserAdaptor {
 		return userVO;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void updateGroupAndFunction(User user, UserVO userVO) {
 
-		Map<String, Object> groupFunctionMap = new HashMap<>();
+		List<GroupVO> groupList = new ArrayList<>();
 		if (null != user.getUserGroups()) {
 			List<UserGroup> userGroups = user.getUserGroups();
 			ListIterator<UserGroup> iterator = userGroups.listIterator();
 			while (iterator.hasNext()) {
 				UserGroup userGroup = iterator.next();
-				List<String> functionList = new ArrayList<>();
-				Iterator<GroupFunction> groupFunctionIterator = userGroup.getGroup().getGroupFunctions().iterator();
-				while (groupFunctionIterator.hasNext()) {
-					GroupFunction groupFunction = groupFunctionIterator.next();
-					functionList.add(groupFunction.getFunction().getName());
-				}
-				groupFunctionMap.put(userGroup.getGroup().getGroupName(), functionList);
+				GroupVO groupVO = groupAdaptor.toVO(userGroup.getGroup());
+				groupList.add(groupVO);
 			}
 		}
-		userVO.setOtherData(groupFunctionMap);
+		Map map = new HashMap<>();
+		map.put("groupList", groupList);
+		userVO.setOtherData(map);
 	}
 
 	public User fromVO(UserVO userVO) {

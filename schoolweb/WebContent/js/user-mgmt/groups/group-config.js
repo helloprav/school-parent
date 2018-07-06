@@ -76,20 +76,5 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
-        // nested list with custom controller
-        .state('group-mgmt.groups.new_old', {
-            url: '/new',
-            templateUrl: 'templates/user-mgmt/groups/new.html',
-            controller: 'GroupsController',
-            resolve: {
-		configsPromise: ['groupFactory', function(groupFactory) {
-			return groupFactory.resetAll();
-		}],
-		newPromise: ['groupFactory', function(groupFactory) {
-			return groupFactory.initNew();
-		}]
-            }
-        })
-
         // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
 });

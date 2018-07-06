@@ -40,7 +40,7 @@
                         var statusCode = data.statusCode;
                         if (statusCode == 200) {
 
-                            $scope.userID = $scope.responseBody[0].userID;
+                            $scope.userID = $scope.responseBody.userID;
 
                             $window.localStorage.setItem("saved", $scope.responseBody);
                             $window.localStorage.setItem("loginuserid", $scope.userID);

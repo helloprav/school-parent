@@ -22,24 +22,25 @@ angular.module('routerApp')
 			o.userGenders = [];
 		}
 
-		o.initNew = function() {
-			console.log("initNew called");
-			initRoles();
-			initGenders();
-		}
-
 		o.getUserRole = function() {
 			console.log("getUserRole called");
 			initRoles();
+		}
+
+		o.getUserGender = function() {
+			console.log("getUserGender called");
+			initGenders();
 		}
 
 		function initRoles() {
 			console.log("initRoles called");
 			o.userRoles = [];
 		    	var url = userMgmtCtx+"/validvalues/userroles";
-			return $http.get(url).then(function(res) {
-				angular.copy(res.data, o.userRoles);
-				console.log("initRoles called: "+o.userRoles);
+			return $http.get(url).success(function(res) {
+				angular.copy(res, o.userRoles);
+				//o.userRoles.push("--Please Select--");
+				//o.userRoles.splice(0, 0, "--Please Select--");
+				console.log("initRoles called: "+JSON.stringify(o.userRoles));
 			})
 		}
 
@@ -47,17 +48,19 @@ angular.module('routerApp')
 			console.log("initGenders called");
 			o.userGenders = [];
 		    	var url = userMgmtCtx+"/validvalues/genders";
-			return $http.get(url).then(function(res) {
-				angular.copy(res.data, o.userGenders);
-				console.log("initGenders called: "+o.userGenders);
+			return $http.get(url).success(function(res) {
+				angular.copy(res, o.userGenders);
+				console.log("initGenders called: "+JSON.stringify(o.userGenders));
 			})
 		}
 
 		o.get = function(id) {
 			console.log("get called for id:"+id);
-		    	var url = userMgmtCtx+"/users/roles/student";
-			return $http.get(url).then(function(res) {
+		    	var url = userMgmtCtx+"/users/"+id;
+			return $http.get(url).success(function(res) {
 				angular.copy(res.data, o.user);
+				o.user.myrole=o.user.role;
+				console.log("user retrieved for id:"+JSON.stringify(res));
 			})
 		};
 
@@ -86,7 +89,7 @@ angular.module('routerApp')
 		};
 
 		o.create = function(user) {
-			console.log("Creating User ");
+			console.log("Creating User "+JSON.stringify(user));
 			user.version = new Date().getTime();		
 			if(user.skipFirstLine == undefined) {
 				user.skipFirstLine = false;
@@ -102,14 +105,14 @@ angular.module('routerApp')
 				$state.go('user-mgmt.users');				
 			})
 			.error(function(data, status, headers, user) {
-				console.log("Error creating! status = "+status+", data = "+data);
+				console.log("Error creating! status = "+status+", data = "+JSON.stringify(data));
 				o.setAlert("danger", "Error creating user!");
 			});
 		}
-		
+
 		o.update = function(config) {
 			console.log("Updating config");
-			return $http.put('/config/'+config._id, config)
+			return $http.put(userMgmtCtx+'/users'+config.userID, config)
 			.success(function(data) {
 				o.setAlert("success", "Successfully updated config!");
 				

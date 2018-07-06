@@ -1,28 +1,29 @@
-<!-- <div class="col-sm-10">
-	<select class="form-control" ng-model="selectedRole" ng-change="changeType()" >	
-		<option ng-repeat="role1 in userRoles" value="{{role1}}">{{role1}}</option>
-	</select>
-</div>
-<div class="dropdown">
-	<button class="btn btn-primary dropdown-toggle" type="button"
-		data-toggle="dropdown">
-		Dropdown Example <span class="caret"></span>
-	</button>
-	<ul class="dropdown-menu">
-		<li ng-repeat="item in userRoles"><a ng-model="selectedRole"
-			ng-change="changeType()"></a></li>
-	</ul>
-</div> -->
-<!-- 		<select ng-model="selectedRole"
-			ng-options="item as item for item in userRoles"
-			ng-change="changeType()"></select>
- -->
-
-<div class="alert alert-primary" role="alert">
-  Displaying All: {{selectedRole.value}}
-</div>
-<table class="table table-hover table-striped table-bordered table-responsive">
+<table class="table table-hover table-striped table-bordered table-responsive123">
     <thead>
+    	<tr>
+    		<td colspan="7">
+				<div class="btn-group">
+  					Displaying: <b>{{selectedRole.value}}</b>          Please Select User Role &nbsp;
+					<button type="button" class="btn btn-primary dropdown-toggle"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Roles</button>
+					<ul class="dropdown-menu">
+						<li class="dropdown active">
+							<a class="dropdown-item open" href="#/user-mgmt/users/list/all">all</a>
+						</li>
+						<li ng-repeat="role in userRoles" class="dropdown">
+							<a class="dropdown-item" href="#/user-mgmt/users/list/{{role}}">{{role}}</a>
+						</li>
+					</ul>
+				</div>
+
+				<div align="right" class="btn-group-vertical float-right">
+					<a href="#/user-mgmt/users/new"><button
+							type="button" class="btn btn-primary">Create</button></a>
+				</div>
+    		</td>
+    	</tr>
+    </thead>
+    <tbody>
         <tr>
             <td>ID</td>
             <td>Name</td>
@@ -32,16 +33,14 @@
             <td>Description</td>
             <td>Action</td>
         </tr>
-    </thead>
-    <tbody>
         <tr ng-repeat="entity in entityList">
-            <td>{{ entity.userID }}</td>
+            <td><a href="#/user-mgmt/users/{{ entity.userID }}/view">{{ entity.userID }}</a></td>
             <td>{{ entity.firstName }} {{lastName}}</td>
             <td>{{ entity.gender }}</td>
             <td>{{ entity.email }}</td>
             <td>{{ entity.role }}</td>
             <td>{{ entity.description }}</td>
-            <td>EDIT | DELETE</td>
+            <td><a href="#/user-mgmt/users/{{ entity.userID }}/edit">EDIT</a> | DELETE</td>
         </tr>
         
     </tbody>

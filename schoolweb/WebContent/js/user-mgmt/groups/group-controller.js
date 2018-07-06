@@ -13,7 +13,7 @@
 		$scope.functions = functionFactory.allFunctionList;
 
 		var groupFunctions = $scope.group.functionList;
-		console.log('groupFunctions: '+ JSON.stringify(groupFunctions));
+		console.log('group: '+ JSON.stringify($scope.group));
 		$scope.functionids = [];
 		var len = 0;
 		if(groupFunctions != undefined) {

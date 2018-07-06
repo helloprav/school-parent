@@ -22,11 +22,11 @@ public class BaseASImpl {
 
 	public Group returnIfEntityExists(Long id, GroupRepository baseRepository) {
 
-		Optional<Group> user = baseRepository.findById(id);
-		if (!user.isPresent()) {
+		Optional<Group> group = baseRepository.findById(id);
+		if (!group.isPresent()) {
 			throw new EntityNotFoundException(String.format("Requested entity %s not found", id));
 		} else {
-			return user.get();
+			return group.get();
 		}
 	}
 

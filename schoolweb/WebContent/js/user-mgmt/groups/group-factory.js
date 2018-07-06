@@ -17,21 +17,19 @@ angular.module('routerApp')
 		o.get = function(id) {
 			console.log("get called for id:"+id);
 		    	var url = userMgmtCtx+"/groups/"+id;
-			return $http.get(url).then(function(res) {
-			console.log(JSON.stringify(res.data.data));
-			    if(res.data.data.length ==1) {
-				angular.copy(res.data.data[0], o.group);
-			    }
+			return $http.get(url).success(function(resp) {
+    				console.log(JSON.stringify(resp));
+    				angular.copy(resp.data, o.group);
 			})
 		};
 
 		o.getAll = function() {
 			console.log('getting all groups');
 		    	var url = userMgmtCtx+"/groups";
-			return $http.get(url).success(function(data) {
+			return $http.get(url).success(function(resp) {
 			    	o.entityList = [];
-				angular.copy(data, o.entityList);
-				console.log('response:: '+JSON.stringify(data));
+				angular.copy(resp, o.entityList);
+				console.log('response:: '+JSON.stringify(resp));
 			});
 		};
 

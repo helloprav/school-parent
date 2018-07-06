@@ -34,6 +34,26 @@
 		$scope.createUser = function() {
 		    configFactory.create($scope.user);
 		};
+
+		$scope.updateUser = function() {
+		    console.log('updateUser Called');
+		    //$scope.updateGroupList();
+		    configFactory.update($scope.user);
+		};
+
+		$scope.updateGroupList = function() {
+		    console.log('updateGroupList Called');
+		    $scope.user.otherData.groupList = [];
+		    var len = $scope.functionids.length;
+		    if (len > 0) {
+			for (var i = 0; i < len; i++) {
+			    var jsonData = {};
+			    jsonData["id"] = $scope.functionids[i];
+			    $scope.group.functionList.push(jsonData);
+			}
+		    }
+		    console.log('Group JSON: '+JSON.stringify($scope.group));
+		}
 	    })
 })();
 
