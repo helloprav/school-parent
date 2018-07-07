@@ -34,13 +34,13 @@
             <td>Action</td>
         </tr>
         <tr ng-repeat="entity in entityList">
-            <td><a href="#/user-mgmt/users/{{ entity.userID }}/view">{{ entity.userID }}</a></td>
+            <td><a href="#/user-mgmt/users/{{ entity.id }}/view">{{ entity.id }}</a></td>
             <td>{{ entity.firstName }} {{lastName}}</td>
             <td>{{ entity.gender }}</td>
             <td>{{ entity.email }}</td>
             <td>{{ entity.role }}</td>
             <td>{{ entity.description }}</td>
-            <td><a href="#/user-mgmt/users/{{ entity.userID }}/edit">EDIT</a> | DELETE</td>
+            <td><a href="#/user-mgmt/users/{{ entity.id }}/edit">EDIT</a> | DELETE</td>
         </tr>
         
     </tbody>

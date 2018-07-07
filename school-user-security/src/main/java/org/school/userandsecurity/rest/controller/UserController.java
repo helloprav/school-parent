@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 
 import org.openframework.common.rest.annotations.GetMappingProduces;
-import org.openframework.common.rest.auth.permission.SecuredPermissions;
 import org.openframework.common.rest.beans.ResponseBean;
 import org.openframework.common.rest.controller.BaseController;
 import org.openframework.common.rest.vo.UserVO;
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
@@ -62,7 +62,7 @@ public class UserController extends BaseController {
 		return findUsersByRoleAndStatus(null, null);
 	}
 
-	@SecuredPermissions("student")
+	//@SecuredPermissions("student")
 	@GetMappingProduces ("/roles/{role}")
 	public List<UserVO> findUsersByRole(@PathVariable UserRole role, @ApiIgnore UserVO userProfile) {
 		System.out.println("User Email: "+userProfile.getEmail());
@@ -96,14 +96,14 @@ public class UserController extends BaseController {
 		return userService.findUserById(id);
 	}
 
-	/*
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
-	public GroupVO updateGroup(@PathVariable Long id, @RequestBody GroupVO groupVO, @ApiIgnore UserVO userProfile) {
-		groupVO.setId(id);
-		groupVO.setLoggedInUserId(userProfile.getLoggedInUserId());
-		return userService.updateGroup(groupVO);
+	public UserVO updateUser(@PathVariable Long id, @RequestBody UserVO userVO, @ApiIgnore UserVO userProfile) {
+		userVO.setId(id);
+		userVO.setLoggedInUserId(userProfile.getLoggedInUserId());
+		return userService.updateUser(userVO);
 	}
 
+	/*
 	@RequestMapping(method = RequestMethod.PATCH, path = "/{id}/status/{status}")
 	public GroupVO updateStatus(@PathVariable Long id, @PathVariable Boolean status, @ApiIgnore UserVO userProfile) {
 		GroupVO groupVO = new GroupVO();

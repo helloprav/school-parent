@@ -51,13 +51,12 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		return userAdaptor.toVO(userAS.findUserById(id));
 	}
 
-	/*
 	@Override
-	public GroupVO updateGroup(GroupVO group) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserVO updateUser(UserVO userVO) {
+		return userAdaptor.toVO(userAS.updateUser(userAdaptor.fromVO(userVO)));
 	}
 
+	/*
 	@Override
 	public GroupVO updateStatus(GroupVO groupVO) {
 		// TODO Auto-generated method stub

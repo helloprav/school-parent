@@ -18,9 +18,9 @@ public interface UserAS {
 
 	User findUserGroupAndAccess(User user);
 
-	/*
 	User updateUser(User user);
 
+	/*
 	User updateStatus(User user);
 	*/
 }

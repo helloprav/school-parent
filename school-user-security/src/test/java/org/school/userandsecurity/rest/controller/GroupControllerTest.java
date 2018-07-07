@@ -54,33 +54,33 @@ public class GroupControllerTest extends BaseControllerTest {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 
-	//@Test
+	@Test
 	public void testFindGroups() throws Exception {
 		mockMvc.perform(get("/groups").param("page", "0").accept(SUPPORTED_CONTENT_TYPE)).andExpect(status().isOk())
 				.andDo(MockMvcResultHandlers.print()).andExpect(jsonPath("$.data").exists());
 	}
 
-	//@Test
+	@Test
 	public void testFindGroupById_IdNotExists() throws Exception {
 		mockMvc.perform(get("/groups/9999999").contentType(SUPPORTED_CONTENT_TYPE)).andExpect(status().isNotFound())
 				.andDo(MockMvcResultHandlers.print());
 	}
 
-	//@Test
+	@Test
 	public void testFindGroupById() throws Exception {
 		mockMvc.perform(get("/groups/1").contentType(SUPPORTED_CONTENT_TYPE)).andExpect(status().isOk())
 				.andDo(MockMvcResultHandlers.print()).andExpect(jsonPath("$.data").exists());
 	}
 
-	//@Test
+	@Test
 	public void testFindGroupByIdWithFunctionList() throws Exception {
 		mockMvc.perform(get("/groups/1").contentType(SUPPORTED_CONTENT_TYPE))
 		.andDo(MockMvcResultHandlers.print())
 		.andExpect(status().isOk())
-		.andExpect(jsonPath("$.data.[0].functionList").exists());
+		.andExpect(jsonPath("$.data.functionList").exists());
 	}
 
-	//@Test
+	@Test
 	public void testCreateGroup_MissingMandatoryFields() throws Exception {
 		GroupVO groupVO = createGroupVO("Ctrl.testCreateUser");
 		groupVO.setGroupName(null);
@@ -93,7 +93,7 @@ public class GroupControllerTest extends BaseControllerTest {
 				.andDo(MockMvcResultHandlers.print());
 	}
 
-	//@Test
+	@Test
 	public void testCreateGroup_IncorrectStringFieldsSize() throws Exception {
 		GroupVO groupVO = createGroupVO(MORE_THAN_50_CHAR_LONG_STRING);
 		groupVO.setGroupName(null);
@@ -126,7 +126,7 @@ public class GroupControllerTest extends BaseControllerTest {
 		return functionVOList;
 	}
 
-	// @Test
+	@Test
 	public void testFindUserById_InvalidId() throws Exception {
 		mockMvc.perform(get("/users/invalidId").contentType(SUPPORTED_CONTENT_TYPE)).andExpect(status().isBadRequest())
 				.andDo(MockMvcResultHandlers.print());
@@ -141,7 +141,7 @@ public class GroupControllerTest extends BaseControllerTest {
 				.andExpect(status().isBadRequest()).andDo(MockMvcResultHandlers.print());
 	}
 
-	//@Test
+	@Test
 	public void testUpdateGroup() throws Exception {
 		GroupVO groupVO = createGroupVO("Test Update");
 		groupVO.setFunctionList(populateFunctionVOList(1l, 3l));

@@ -54,7 +54,7 @@ angular.module('routerApp')
 			return $http.put(userMgmtCtx+'/groups/'+group.id, group)
 			.success(function(data) {
 				o.setAlert("success", "Successfully updated Group!");
-				
+
 				$state.go('group-mgmt.groups.list');
 			})
 			.error(function(data, status) {

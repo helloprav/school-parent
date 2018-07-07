@@ -21,9 +21,9 @@ public interface UserService {
 
 	UserVO findUserById(Long id);
 
-	/*
-	UserVO updateGroup(UserVO userVO);
+	UserVO updateUser(UserVO userVO);
 
+	/*
 	UserVO updateStatus(UserVO userVO);
 	*/
 }

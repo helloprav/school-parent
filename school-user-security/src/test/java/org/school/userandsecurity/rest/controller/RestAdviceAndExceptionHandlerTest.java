@@ -14,7 +14,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openframework.common.rest.vo.UserVO;
 import org.school.userandsecurity.rest.config.TestMetadataWebConfig;
-import org.school.userandsecurity.rest.controller.BaseControllerTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -38,6 +37,11 @@ public class RestAdviceAndExceptionHandlerTest extends BaseControllerTest {
 	private WebApplicationContext ctx;
 	private MockMvc mockMvc;
 
+	@Override
+	public String getBaseUrl() {
+		return "/groups";
+	}
+
 	@Before
 	public void setUp() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
@@ -45,9 +49,10 @@ public class RestAdviceAndExceptionHandlerTest extends BaseControllerTest {
 
 	@Test
 	public void testInvalidRequestUrl_BadRequest400() throws Exception {
-		mockMvc.perform(get("/cat/invalidUrl").accept("application/vnd.shop.app-v0.1+json")
-				.contentType("application/vnd.shop.app-v0.1+json")).andExpect(status().isBadRequest())
-				.andDo(MockMvcResultHandlers.print());
+		mockMvc.perform(get(getBaseUrl()+"/invalidUrl").accept("application/vnd.shop.app-v0.1+json")
+				.contentType("application/vnd.shop.app-v0.1+json"))
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(status().isBadRequest());
 	}
 
 	@Test
@@ -56,8 +61,9 @@ public class RestAdviceAndExceptionHandlerTest extends BaseControllerTest {
 		String requestBody = "{\r\n" + "  \"invalidProperty\": \"ProductTest.test\",\r\n"
 				+ "  \"invalidDesc\": \"description\"\r\n" + "}";
 		System.out.println("requestBody: " + requestBody);
-		mockMvc.perform(post("/cat").content(requestBody).contentType("application/vnd.shop.app-v0.1+json"))
-				.andExpect(status().isBadRequest()).andDo(MockMvcResultHandlers.print());
+		mockMvc.perform(post(getBaseUrl()).content(requestBody).contentType("application/vnd.shop.app-v0.1+json"))
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(status().isBadRequest());
 	}
 
 	/**
@@ -69,14 +75,17 @@ public class RestAdviceAndExceptionHandlerTest extends BaseControllerTest {
 	public void testHttpMethod_MethodNotAllowed405() throws Exception {
 		UserVO ad = createUserVO("UserControllerTest.testUpdateCategory()");
 		String requestBody = saveRequestJsonString(ad);
-		mockMvc.perform(put("/cat/4/status/true").param("uid", "1").accept("application/vnd.shop.app-v0.1+json")
-				.content(requestBody)).andExpect(status().isMethodNotAllowed()).andDo(MockMvcResultHandlers.print());
+		mockMvc.perform(put(getBaseUrl()).param("uid", "1").accept(APP_JSON)
+				.content(requestBody))
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(status().isMethodNotAllowed());
 	}
 
 	@Test
 	public void testInvalidAcceptHeader_NotAcceptable406() throws Exception {
-		mockMvc.perform(get("/cat").accept("application/vnd.shop.invalid.header")).andExpect(status().isNotAcceptable())
-				.andDo(MockMvcResultHandlers.print());
+		mockMvc.perform(get(getBaseUrl()).accept("application/vnd.shop.invalid.header"))
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(status().isNotAcceptable());
 	}
 
 	@Test
@@ -85,25 +94,24 @@ public class RestAdviceAndExceptionHandlerTest extends BaseControllerTest {
 		UserVO ad = createUserVO("UserControllerTest.testCreateCategory()");
 		String requestBody = saveRequestJsonString(ad);
 		System.out.println("requestBody: " + requestBody);
-		mockMvc.perform(post("/cat").content(requestBody).contentType("application/vnd.shop.invalid.header"))
-				.andExpect(status().isUnsupportedMediaType()).andDo(MockMvcResultHandlers.print());
+		mockMvc.perform(post(getBaseUrl()).content(requestBody).contentType("application/vnd.shop.invalid.header"))
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(status().isUnsupportedMediaType());
 	}
 
 	@Test
 	public void testFindCategoryById_throwsKeywordNotFoundException() throws Exception {
-		mockMvc.perform(get("/cat/0").accept("application/vnd.shop.app-v0.1+json")).andExpect(status().isOk())
-				.andDo(MockMvcResultHandlers.print()).andExpect(jsonPath("$.data").exists());
+		mockMvc.perform(get(getBaseUrl()+"/1"))
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.data").exists());
 	}
 
 	@Test
 	public void testFindCategoryById_throwsApplicationValidationException() throws Exception {
-		mockMvc.perform(get("/cat/-1").accept("application/vnd.shop.app-v0.1+json")).andExpect(status().isOk())
-				.andDo(MockMvcResultHandlers.print()).andExpect(jsonPath("$.data").exists());
-	}
-
-	@Test
-	public void testFindCategoryById_throwsServiceNotFoundException() throws Exception {
-		mockMvc.perform(get("/cat/-2").accept("application/vnd.shop.app-v0.1+json")).andExpect(status().isOk())
-				.andDo(MockMvcResultHandlers.print()).andExpect(jsonPath("$.data").exists());
+		mockMvc.perform(get(getBaseUrl()+"/1").accept(APP_JSON))
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.data").exists());
 	}
 }

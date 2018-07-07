@@ -35,12 +35,13 @@ public class UserASImpl extends BaseASImpl implements UserAS {
 	@Override
 	public Long createUser(User user) {
 		user.setId(null);
-		checkIfAdmissionNoExists(user.getAdmissionNo());
+		//checkIfAdmissionNoExists(user.getAdmissionNo());
 		user.setCreatedDate(new Date());
 		user = userRepository.save(user);
 		return user.getId();
 	}
 
+	@SuppressWarnings("unused")
 	private void checkIfAdmissionNoExists(Long admissionNo) {
 
 		List<User> users = userRepository.admissionNoExists(admissionNo);
@@ -73,13 +74,15 @@ public class UserASImpl extends BaseASImpl implements UserAS {
 		return userRepository.findUserGroupsAndFunctions(user.getId());
 	}
 
-	/*
 	@Override
 	public User updateUser(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		//checkIfAdmissionNoExists(user.getAdmissionNo());
+		user.setModifiedDate(new Date());
+		user = userRepository.save(user);
+		return user;
 	}
 
+	/*
 	@Override
 	public User updateStatus(User user) {
 		// TODO Auto-generated method stub

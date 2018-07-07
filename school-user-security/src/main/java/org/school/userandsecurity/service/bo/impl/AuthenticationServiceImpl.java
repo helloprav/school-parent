@@ -60,7 +60,7 @@ public class AuthenticationServiceImpl extends BaseServiceImpl implements Authen
 
 		List<Cookie> loginCookieList = new ArrayList<>();
 		String loggedInUserCookieValue = CookieUtils.getLoggedInUserCookieValue(userVO);
-		Cookie uid = CookieUtils.createCookie(CookieConstants.COOKIE_UID, Long.toString(userVO.getUserID()));
+		Cookie uid = CookieUtils.createCookie(CookieConstants.COOKIE_UID, Long.toString(userVO.getId()));
 		Cookie liu = CookieUtils.createCookie(CookieConstants.COOKIE_LIU,
 				encryptionUtil.encrypt(loggedInUserCookieValue));
 		loginCookieList.add(uid);

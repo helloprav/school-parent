@@ -111,12 +111,12 @@ angular.module('routerApp')
 		}
 
 		o.update = function(config) {
-			console.log("Updating config");
-			return $http.put(userMgmtCtx+'/users/'+config.userID, config)
+			console.log("Updating User: "+JSON.stringify(config));
+			return $http.put(userMgmtCtx+'/users/'+config.id, config)
 			.success(function(data) {
 				o.setAlert("success", "Successfully updated config!");
-				
-				$state.go('config.list');				
+
+				$state.go('user-mgmt.users.list');
 			})
 			.error(function(data, status) {
 				console.log("Error updating! status = "+status+", data = "+data);
@@ -200,7 +200,6 @@ angular.module('routerApp')
 			if($scope.config.commands.length > 1) {
 				$scope.config.commands.splice(index, 1);				
 			}
-
 		};
 		
 		

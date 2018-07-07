@@ -32,8 +32,10 @@ public class AuthenticationControllerTest extends BaseControllerTest {
 		String jsonBody = "{\"userName\" : \"praveen\", \"password\" : \"password123\" }";
 
 		mockMvc.perform(post("/auth/login").content(jsonBody).accept(SUPPORTED_CONTENT_TYPE)
-				.contentType(SUPPORTED_CONTENT_TYPE)).andExpect(status().isBadRequest())
-				.andDo(MockMvcResultHandlers.print()).andExpect(jsonPath("$.data").doesNotExist());
+		.contentType(SUPPORTED_CONTENT_TYPE))
+		.andDo(MockMvcResultHandlers.print())
+		.andExpect(status().isBadRequest())
+		.andExpect(jsonPath("$.data").doesNotExist());
 	}
 
 	@Test
@@ -42,8 +44,10 @@ public class AuthenticationControllerTest extends BaseControllerTest {
 		String jsonBody = "{\"email\" : \"praveen\", \"password\" : \"password123\" }";
 
 		mockMvc.perform(post("/auth/login").content(jsonBody).accept(SUPPORTED_CONTENT_TYPE)
-				.contentType(SUPPORTED_CONTENT_TYPE)).andExpect(status().isBadRequest())
-				.andDo(MockMvcResultHandlers.print()).andExpect(jsonPath("$.data").doesNotExist());
+		.contentType(SUPPORTED_CONTENT_TYPE))
+		.andDo(MockMvcResultHandlers.print())
+		.andExpect(status().isBadRequest())
+		.andExpect(jsonPath("$.data").doesNotExist());
 	}
 
 	@Test
@@ -52,8 +56,10 @@ public class AuthenticationControllerTest extends BaseControllerTest {
 		String jsonBody = "{\"email\" : \"praveen@invalidEmail.com\", \"password\" : \"password\" }";
 
 		mockMvc.perform(post("/auth/login").content(jsonBody).accept(SUPPORTED_CONTENT_TYPE)
-				.contentType(SUPPORTED_CONTENT_TYPE)).andExpect(status().isUnauthorized()).andDo(MockMvcResultHandlers.print())
-				.andExpect(jsonPath("$.data").doesNotExist());
+		.contentType(SUPPORTED_CONTENT_TYPE))
+		.andDo(MockMvcResultHandlers.print())
+		.andExpect(status().isUnauthorized())
+		.andExpect(jsonPath("$.data").doesNotExist());
 	}
 
 	@Test
@@ -62,18 +68,22 @@ public class AuthenticationControllerTest extends BaseControllerTest {
 		String jsonBody = "{\"email\" : \"praveen@email.com\", \"password\" : \"invalidPassword\" }";
 
 		mockMvc.perform(post("/auth/login").content(jsonBody).accept(SUPPORTED_CONTENT_TYPE)
-				.contentType(SUPPORTED_CONTENT_TYPE)).andExpect(status().isUnauthorized()).andDo(MockMvcResultHandlers.print())
-				.andExpect(jsonPath("$.data").doesNotExist());
+		.contentType(SUPPORTED_CONTENT_TYPE))
+		.andDo(MockMvcResultHandlers.print())
+		.andExpect(status().isUnauthorized())
+		.andExpect(jsonPath("$.data").doesNotExist());
 	}
 
 	@Test
 	public void testLogin() throws Exception {
 
-		String jsonBody = "{\"email\" : \"praveen@email.com\", \"password\" : \"password1\" }";
+		String jsonBody = "{\"email\" : \"praveen@email.com\", \"password\" : \"pass1\" }";
 
 		mockMvc.perform(post("/auth/login").content(jsonBody).accept(SUPPORTED_CONTENT_TYPE)
-				.contentType(SUPPORTED_CONTENT_TYPE)).andExpect(status().isOk()).andDo(MockMvcResultHandlers.print())
-				.andExpect(jsonPath("$.data").exists());
+		.contentType(SUPPORTED_CONTENT_TYPE))
+		.andDo(MockMvcResultHandlers.print())
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.data").exists());
 	}
 
 }

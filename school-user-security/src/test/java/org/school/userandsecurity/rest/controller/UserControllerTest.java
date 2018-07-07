@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openframework.common.rest.constants.ApplicationConstants;
 import org.openframework.common.rest.vo.UserVO;
 import org.school.userandsecurity.config.SpringWebApplicationInitializer;
 import org.school.userandsecurity.rest.config.TestMetadataWebConfig;
@@ -69,33 +70,38 @@ public class UserControllerTest extends BaseControllerTest {
 		done = true;
 	}
 
-	// @Test
+	protected String getBaseUrl() {
+		return "/users";
+	}
+
+	@Test
 	public void testFindUserBy_InvalidRole() throws Exception {
 		mockMvc.perform(get("/users/roles/invalidRole").accept(SUPPORTED_CONTENT_TYPE))
 				.andExpect(status().isBadRequest()).andDo(MockMvcResultHandlers.print())
 				.andExpect(jsonPath("$.data").doesNotExist());
 	}
 
-	// @Test
+	@Test
 	public void testFindUserByStudentsRole() throws Exception {
-		mockMvc.perform(get("/users/roles/student").param("page", "0").accept(SUPPORTED_CONTENT_TYPE))
-				.andExpect(status().isOk()).andDo(MockMvcResultHandlers.print()).andExpect(jsonPath("$.data").exists());
+		mockMvc.perform(get("/users/roles/student").param("page", "0").accept(SUPPORTED_CONTENT_TYPE)
+				.requestAttr(ApplicationConstants.SPRING_TEST_ENV, true)).andDo(MockMvcResultHandlers.print())
+				.andExpect(status().isOk()).andExpect(jsonPath("$.data").exists());
 	}
 
-	// @Test
+	@Test
 	public void testFindUserByStudentsRoleAnd_InvalidStatus() throws Exception {
 		mockMvc.perform(get("/users/roles/student/status/invalid").accept(SUPPORTED_CONTENT_TYPE))
 				.andExpect(status().isBadRequest()).andDo(MockMvcResultHandlers.print())
 				.andExpect(jsonPath("$.data").doesNotExist());
 	}
 
-	// @Test
+	@Test
 	public void testFindUserByStudentsRoleAndActiveStatus() throws Exception {
 		mockMvc.perform(get("/users/roles/student/status/active").accept(SUPPORTED_CONTENT_TYPE))
 				.andExpect(status().isOk()).andDo(MockMvcResultHandlers.print()).andExpect(jsonPath("$.data").exists());
 	}
 
-	// @Test
+	@Test
 	public void testCreateUser_InvalidGenderEnumValue() throws Exception {
 		UserVO user = createUserVO("Ctrl.testCreateUser");
 		user.setGender("Praveen");
@@ -103,10 +109,11 @@ public class UserControllerTest extends BaseControllerTest {
 		user.setRole(null);
 		String jsonBody = convertVoToJsonString(user);
 		mockMvc.perform(post("/users").content(jsonBody).contentType(SUPPORTED_CONTENT_TYPE))
-				.andExpect(status().isBadRequest()).andDo(MockMvcResultHandlers.print());
+		.andDo(MockMvcResultHandlers.print())
+		.andExpect(status().isBadRequest());
 	}
 
-	// @Test
+	@Test
 	public void testCreateUser_MissingMandatoryFields() throws Exception {
 		UserVO user = createUserVO("Ctrl.testCreateUser");
 		user.setFirstName(null);
@@ -118,7 +125,7 @@ public class UserControllerTest extends BaseControllerTest {
 				.andExpect(status().isBadRequest()).andDo(MockMvcResultHandlers.print());
 	}
 
-	// @Test
+	@Test
 	public void testCreateUser_IncorrectStringFieldsSize() throws Exception {
 		UserVO user = createUserVO("Ctrl.testCreateUser");
 		user.setFirstName("Raj");
@@ -131,7 +138,7 @@ public class UserControllerTest extends BaseControllerTest {
 				.andExpect(status().isBadRequest()).andDo(MockMvcResultHandlers.print());
 	}
 
-	// @Test
+	@Test
 	public void testCreateUser_IncorrectIntegerFieldsSize() throws Exception {
 		UserVO user = createUserVO("Ctrl.testCreateUser");
 		user.setAdmissionNo(19999999l);
@@ -140,7 +147,7 @@ public class UserControllerTest extends BaseControllerTest {
 				.andExpect(status().isBadRequest()).andDo(MockMvcResultHandlers.print());
 	}
 
-	// @Test
+	//@Test
 	public void testCreateUser_UniqueAdmissionNo() throws Exception {
 		UserVO user = createUserVO("Ctrl.testCreateUser");
 		user.setAdmissionNo(20000000l);
@@ -149,21 +156,22 @@ public class UserControllerTest extends BaseControllerTest {
 				.andExpect(status().isBadRequest()).andDo(MockMvcResultHandlers.print());
 	}
 
-	 @Test
+	@Test
 	public void testCreateUser() throws Exception {
 		UserVO user = createUserVO("Ctrl.testCreateUser");
 		String jsonBody = convertVoToJsonString(user);
 		mockMvc.perform(post("/users").content(jsonBody).contentType(SUPPORTED_CONTENT_TYPE))
-				.andExpect(status().isCreated()).andDo(MockMvcResultHandlers.print());
+		.andDo(MockMvcResultHandlers.print())
+		.andExpect(status().isCreated());
 	}
 
-	// @Test
+	@Test
 	public void testFindUserById_InvalidId() throws Exception {
 		mockMvc.perform(get("/users/invalidId").contentType(SUPPORTED_CONTENT_TYPE)).andExpect(status().isBadRequest())
 				.andDo(MockMvcResultHandlers.print());
 	}
 
-//	@Test
+	@Test
 	public void testCreateUser_InvalidEmail() throws Exception {
 		UserVO user = createUserVO("Ctrl.testCreateUser");
 		user.setEmail("Invalid_Email");
@@ -172,7 +180,7 @@ public class UserControllerTest extends BaseControllerTest {
 				.andExpect(status().isBadRequest()).andDo(MockMvcResultHandlers.print());
 	}
 
-	// @Test
+	@Test
 	public void testFindUserById_IdNotExists() throws Exception {
 		mockMvc.perform(get("/users/9999999").contentType(SUPPORTED_CONTENT_TYPE)).andExpect(status().isNotFound())
 				.andDo(MockMvcResultHandlers.print());
@@ -190,8 +198,9 @@ public class UserControllerTest extends BaseControllerTest {
 	public void testUpdateUser() throws Exception {
 		UserVO user = createUserVO("Ctrl.testUpdateUser");
 		String jsonBody = convertVoToJsonString(user);
-		mockMvc.perform(put("/users").content(jsonBody).contentType(SUPPORTED_CONTENT_TYPE))
-				.andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
+		mockMvc.perform(put(getBaseUrl() + "/3").content(jsonBody).contentType(SUPPORTED_CONTENT_TYPE)
+				.requestAttr(ApplicationConstants.SPRING_TEST_ENV, true)).andDo(MockMvcResultHandlers.print())
+				.andExpect(status().isOk());
 	}
 
 	/**
@@ -200,5 +209,5 @@ public class UserControllerTest extends BaseControllerTest {
 	 * 
 	 * @throws Exception
 	 */
-	// @Test
+	//@Test
 }

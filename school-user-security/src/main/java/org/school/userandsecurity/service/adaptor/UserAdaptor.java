@@ -2,7 +2,6 @@ package org.school.userandsecurity.service.adaptor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -11,7 +10,6 @@ import org.openframework.common.rest.vo.UserVO;
 import org.school.userandsecurity.enums.Gender;
 import org.school.userandsecurity.enums.UserRole;
 import org.school.userandsecurity.enums.UserStatus;
-import org.school.userandsecurity.service.entity.GroupFunction;
 import org.school.userandsecurity.service.entity.User;
 import org.school.userandsecurity.service.entity.UserGroup;
 import org.school.userandsecurity.utils.EnumUtility;
@@ -41,7 +39,6 @@ public class UserAdaptor {
 	public UserVO toVO(User user) {
 		UserVO userVO = new UserVO();
 		BeanUtils.copyProperties(user, userVO);
-		userVO.setUserID(user.getId());
 		updateFromEnumTypesToVO(user, userVO);
 		updateGroupAndFunction(user, userVO);
 		return userVO;

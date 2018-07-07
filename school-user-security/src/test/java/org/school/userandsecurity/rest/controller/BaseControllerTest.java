@@ -9,7 +9,6 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openframework.common.rest.constants.ApplicationConstants;
 import org.openframework.common.rest.vo.UserVO;
-import org.school.userandsecurity.rest.argumentresolver.UserProfileHandlerMethodArgumentResolver;
 import org.school.userandsecurity.vo.FunctionVO;
 import org.school.userandsecurity.vo.GroupVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class BaseControllerTest {
 
 	public static final String MORE_THAN_50_CHAR_LONG_STRING = "org.springframework.web.util.NestedServletException";
+	public static final String APP_JSON = MediaType.APPLICATION_JSON_VALUE;
+	public static final String SUPPORTED_CONTENT_TYPE = MediaType.APPLICATION_JSON_VALUE;
+
 
 	@Autowired
 	protected WebApplicationContext ctx;
@@ -41,20 +43,18 @@ public class BaseControllerTest {
 	@Before
 	public void setUpBase() {
 		System.out.println("\n-------------------------------------" + this.getClass().getSimpleName()+"."+testName.getMethodName());
-		String[] userProfileHandlerMethodArgumentResolver = this.ctx.getBeanNamesForType(UserProfileHandlerMethodArgumentResolver.class);
-		System.out.println(userProfileHandlerMethodArgumentResolver);
+		//String[] userProfileHandlerMethodArgumentResolver = this.ctx.getBeanNamesForType(UserProfileHandlerMethodArgumentResolver.class);
+		//System.out.println(userProfileHandlerMethodArgumentResolver);
 		BeanDefinitionRegistry registry = (BeanDefinitionRegistry) ctx.getAutowireCapableBeanFactory();
 	    for(String beanName : ctx.getBeanDefinitionNames()){
 	    	if("userProfileHandlerMethodArgumentResolver".equals(beanName)) {
 	    		registry.removeBeanDefinition("userProfileHandlerMethodArgumentResolver");
 	    	}
-	        System.out.println(beanName);
+	        //System.out.println(beanName);
 	        //registry.removeBeanDefinition(beanName);
 	    }
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
-
-	public static final String SUPPORTED_CONTENT_TYPE = MediaType.APPLICATION_JSON_VALUE;
 
 	public static String saveRequestJsonString(UserVO userVO) {
 		StringBuilder sb = new StringBuilder().append("{\n ");
@@ -77,7 +77,7 @@ public class BaseControllerTest {
 		UserVO userVO = new UserVO();
 		userVO.setFirstName("Praveen Kumar");
 		userVO.setLastName("Mishra");
-		userVO.setAdmissionNo(20000172L);
+//		userVO.setAdmissionNo(20000172L);
 		userVO.setEmail("praveen@email.com");
 		userVO.setGender("male");
 		userVO.setMobile("9900990099");
@@ -85,7 +85,7 @@ public class BaseControllerTest {
 		userVO.setPassword("secret_password".toCharArray());
 		userVO.setRole("student");
 		userVO.setStatus("active");
-		userVO.setUserID(1L);
+		userVO.setId(1L);
 		userVO.setIsValid(true);
 		userVO.setDescription("This is a very good boy");
 		return userVO;
